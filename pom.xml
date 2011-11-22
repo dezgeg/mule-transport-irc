@@ -184,6 +184,11 @@
             <version>3.8.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>pircbot</groupId>
+            <artifactId>pircbot</artifactId>
+            <version>1.5.0</version>
+        </dependency>
     </dependencies>
 
     <repositories>
