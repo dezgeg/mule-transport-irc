@@ -1,29 +1,12 @@
-/*
- * $Id$
- * --------------------------------------------------------------------------------------
- * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
- *
- * The software in this package is published under the terms of the CPAL v1.0
- * license, a copy of which has been included with this distribution in the
- * LICENSE.txt file.
- */
-
+/* This class is unnecessary I think? */
 package org.mule.transport.irc;
 
 import org.mule.api.MuleMessage;
 import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.transport.AbstractMessageRequester;
 
-/**
- * <code>IrcMessageRequester</code> TODO document
- */
 public class IrcMessageRequester extends AbstractMessageRequester
 {
-
-    /* For general guidelines on writing transports see
-       http://www.mulesoft.org/documentation/display/MULE3USER/Creating+Transports
-
-             */
 
     public IrcMessageRequester(InboundEndpoint endpoint)
     {

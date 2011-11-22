@@ -40,6 +40,7 @@
     <xsd:complexType name="ircConnectorType">
         <xsd:complexContent>
             <xsd:extension base="mule:connectorType">
+                <xsd:attribute name="nickname" type="mule:nonBlankString" use="required"/>
             <!--
 
             TODO for simple property types you can just add xsd:attribute elements here
