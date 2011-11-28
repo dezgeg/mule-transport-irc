@@ -40,7 +40,8 @@
     <xsd:complexType name="ircConnectorType">
         <xsd:complexContent>
             <xsd:extension base="mule:connectorType">
-                <xsd:attribute name="nickname" type="mule:nonBlankString" use="required"/>
+                <xsd:attribute name="nickname" type="mule:nonBlankString" use="required" />
+                <xsd:attribute name="server" type="mule:nonBlankString" use="required" />
             <!--
 
             TODO for simple property types you can just add xsd:attribute elements here
@@ -82,7 +83,7 @@
         <xsd:complexContent>
             <xsd:extension base="mule:inboundEndpointType">
                 <xsd:attributeGroup ref="addressAttributes"/>
-                <xsd:attributeGroup ref="propertyAttributes"/>
+                <!--<xsd:attributeGroup ref="propertyAttributes"/>-->
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -92,7 +93,7 @@
         <xsd:complexContent>
             <xsd:extension base="mule:outboundEndpointType">
                 <xsd:attributeGroup ref="addressAttributes"/>
-                <xsd:attributeGroup ref="propertyAttributes"/>
+                <!--<xsd:attributeGroup ref="propertyAttributes"/>-->
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -102,16 +103,13 @@
         <xsd:complexContent>
             <xsd:extension base="mule:globalEndpointType">
                 <xsd:attributeGroup ref="addressAttributes"/>
-                <xsd:attributeGroup ref="propertyAttributes"/>
+                <!--<xsd:attributeGroup ref="propertyAttributes"/>-->
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:attributeGroup name="addressAttributes">
-    <!--
-        TODO define address attributes for this endpoints i.e. queue, host, port, etc
-        <xsd:attribute name="foo" type="xsd:string"/>
-    -->
+    	<xsd:attribute name="channel" type="mule:nonBlankString" use="required" />
     </xsd:attributeGroup>
 
     <xsd:attributeGroup name="propertyAttributes">

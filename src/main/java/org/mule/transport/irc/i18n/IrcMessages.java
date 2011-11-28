@@ -4,7 +4,7 @@ import org.mule.config.i18n.MessageFactory;
 
 public class IrcMessages extends MessageFactory
 {
-    private static final String BUNDLE_PATH = getBundlePath("irc");
+    //private static final String BUNDLE_PATH = getBundlePath("irc");
 
     /*
     public static Message exampleMessage()
