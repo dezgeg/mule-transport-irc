@@ -1,5 +1,6 @@
 package org.mule.transport.irc;
 
+import org.apache.log4j.Logger;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.api.endpoint.OutboundEndpoint;
@@ -7,65 +8,44 @@ import org.mule.transport.AbstractMessageDispatcher;
 
 public class IrcMessageDispatcher extends AbstractMessageDispatcher
 {
-
-    /* For general guidelines on writing transports see
-       http://www.mulesoft.org/documentation/display/MULE3USER/Creating+Transports */
-
+	private static Logger logger = Logger.getLogger(IrcMessageDispatcher.class);
+    protected IrcConnection getConnection()
+    {
+    	return ((IrcConnector)connector).getConnection();
+    }
+    public String getChannel()
+    {
+    	return "#" + this.getEndpoint().getEndpointURI().getUri().getFragment();
+    }
     public IrcMessageDispatcher(OutboundEndpoint endpoint)
     {
         super(endpoint);
-
-        /* IMPLEMENTATION NOTE: If you need a reference to the specific
-           connector for this dispatcher use:
-
-           IrcConnector cnn = (IrcConnector)endpoint.getConnector(); */
     }
 
     @Override
     public void doConnect() throws Exception
     {
-        /* IMPLEMENTATION NOTE: Makes a connection to the underlying
-           resource. Where connections are managed by the connector this
-           method may do nothing */
-
-        // If a resource for this Dispatcher needs a connection established,
-        // then this is the place to do it
+    	this.getConnection().joinChannel(this.getChannel());
     }
 
     @Override
     public void doDisconnect() throws Exception
     {
-        /* IMPLEMENTATION NOTE: Disconnect any conections made in the connect
-           method */
-
-        // If the connect method did not do anything then this method
-        // shouldn't do anything either
+        this.getConnection().partChannel(this.getChannel());
     }
-
     @Override
     public void doDispatch(MuleEvent event) throws Exception
     {
-        /* IMPLEMENTATION NOTE: This is invoked when the endpoint is
-           asynchronous.  It should invoke the transport but not return any
-           result.  If a result is returned it should be ignorred, but if the
-           underlying transport does have a notion of asynchronous processing,
-           that should be invoked.  This method is executed in a different
-           thread to the request thread. */
-
-
-        /* IMPLEMENTATION NOTE: The event message needs to be transformed for the outbound transformers to take effect. This
-           isn't done automatically in case the dispatcher needs to modify the message before apllying transformers.  To
-           get the transformed outbound message call -
-           event.transformMessage(); */
-
-        // TODO Write the client code here to dispatch the event over this transport
-
-        throw new UnsupportedOperationException("doDispatch");
+    	logger.error(event);
+    	logger.error(event.getMessage());
+    	logger.error(event.getMessageAsString());
+    	this.getConnection().sendMessage(this.getChannel(), event.getMessageAsString());
     }
 
     @Override
     public MuleMessage doSend(MuleEvent event) throws Exception
     {
+    	// Is this or doDispatch needed?
         /* IMPLEMENTATION NOTE: Should send the event payload over the
            transport. If there is a response from the transport it shuold be
            returned from this method. The sendEvent method is called when the
@@ -85,15 +65,6 @@ public class IrcMessageDispatcher extends AbstractMessageDispatcher
         // wrapped in a MuleMessage object
 
         throw new UnsupportedOperationException("doSend");
-    }
-
-    @Override
-    public void doDispose()
-    {
-        // Optional; does not need to be implemented. Delete if not required
-
-        /* IMPLEMENTATION NOTE: Is called when the Dispatcher is being
-           disposed and should clean up any open resources. */
     }
 }
 
