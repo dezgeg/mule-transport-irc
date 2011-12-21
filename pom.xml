@@ -64,7 +64,6 @@
         </plugins>
     </build>
 
-
     <!-- plugins for creating site reports -->
     <reporting>
         <plugins>
